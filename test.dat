@@ -1,0 +1,33 @@
+program load module 'zonepython'
+
+model new
+
+
+zone create quad size 10 4
+model large-strain off
+zone cmodel assign elastic
+
+zone face apply velocity-normal 0 range pos-x 0
+zone face apply velocity-normal 0 range pos-x 10
+zone face apply velocity-normal 0 range pos-y 0
+
+zone property density 2800 young 1e9 poisson 0.225 
+
+zone face apply stress-normal 1e6 range pos-y 4 pos-x 0 1.1
+
+;zone face apply velocity-normal 1e-3 range pos-y 4 pos-x 0 1.1
+;cycle 1
+;zone face apply velocity-normal 0 range pos-y 4 pos-x 0 1.1
+
+
+model solve ratio 1e-6
+
+
+zone ini stress 
+zone grid ini displacement 0 0
+
+zone property density 2800 young 1e9 poisson 0.225 range pos-y 0 1
+zone property density 2800 young 1e8 poisson 0.225 range pos-y 1 2
+zone property density 2800 young 2e9 poisson 0.225 range pos-y 2 3
+zone property density 2800 young 5e8 poisson 0.225 range pos-y 3 4
+model solve ratio 1e-6
