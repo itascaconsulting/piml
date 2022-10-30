@@ -23,7 +23,7 @@ zone face apply velocity-normal 0 range pos-y 0
 zone face apply stress-normal 1e6 range pos-y 4 pos-x 0 1.1
 """)
 
-for cube in glob("cube_4_*.npy"):
+for cube in [f"cube_4_{_}.npy" for _ in (17,)]:
     print(cube)
     X = np.load(cube)
     Y = []

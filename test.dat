@@ -18,7 +18,7 @@ zone face apply stress-normal 1e6 range pos-y 4 pos-x 0 1.1
 ;zone face apply velocity-normal 1e-3 range pos-y 4 pos-x 0 1.1
 ;cycle 1
 ;zone face apply velocity-normal 0 range pos-y 4 pos-x 0 1.1
-
+pause
 
 model solve ratio 1e-6
 
