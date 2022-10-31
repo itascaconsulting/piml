@@ -1,4 +1,5 @@
-Scale y with standard scaler, faster training
+Experiments in physics informed machine learning with Itasca software
+
 order of gridpoints with np.lexsort()
 
 To get weights and bias from TensorFlow ann:
