@@ -32,7 +32,6 @@ zone cmodel assign elastic
 ;zone face apply velocity-normal 0 range pos-x 0
 ;zone face apply velocity-normal 0 range pos-x 10
 ;zone face apply velocity-normal 0 range pos-y 0
-;
 ;zone face apply stress-normal 1e6 range pos-y 4 pos-x 0 1.1
 """)
 
@@ -48,7 +47,7 @@ load_comp = np.zeros_like(p)
 load_boundary = (p[:,1]==4) & (p[:,0]<=1.1)
 load_comp[:,1][load_boundary] = 5e5
 
-gpa.set_extra(1, vec_mask[:,0]+vec_mask[:,1])
+#gpa.set_extra(1, vec_mask[:,0]+vec_mask[:,1])
 
 X = np.load("tc_X.npy")
 e0, e1, e2, e3 = X
@@ -70,6 +69,12 @@ it.command(f"""
     ;model solve ratio 1e-6
     """)
 
-
 f = gpa.force_unbal()*vec_mask + load_comp
 gpa.set_extra(1, np.linalg.norm(f, axis=1)/1e6)
+
+
+#sum(np.linalg.norm(f, axis=1)/1e6)
+#Out[59]: 1.822968775889534e-05
+#
+#sum(np.linalg.norm(f0, axis=1)/1e6)
+#Out[60]: 1.299678721626384e-05

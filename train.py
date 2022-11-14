@@ -21,16 +21,12 @@ x_test_scaled = scaler.transform(x_test)
 
 mlpr = MLPRegressor(
     hidden_layer_sizes=(1000,1000,800,700,600,500),
-    activation='tanh',
-    solver='sgd',
-    learning_rate='adaptive',
-    learning_rate_init=0.01,
-    momentum=0.90,
-    max_iter= 160,
+    activation='relu',
+    solver='adam',
+    learning_rate_init=4e-4,
+    max_iter=160,
     tol=2.5e-5,
-    n_iter_no_change=4,
     random_state=1,
-    shuffle=True,
     verbose=True
 )
 
@@ -38,3 +34,6 @@ mlpr.fit(x_train_scaled, y_train)
 y_pred = mlpr.predict(x_test_scaled)
 ts = mlpr.score(x_train_scaled, y_train)
 vs = mlpr.score(x_test_scaled, y_test)
+print(ts, vs)
+
+joblib.dump((scaler, yscaler, mlpr), "sklearn_model.pkl")
