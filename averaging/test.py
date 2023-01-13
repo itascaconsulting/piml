@@ -45,7 +45,7 @@ def show_actual_predicted(actual, predicted):
     ax2.set_xlabel("Error %")
     ax2.axvline(0, linestyle='--', color='k', lw=1.5)
 
-a = np.load("jason_actual.spy")
+a = np.load("jason_actual.npy")
 p0 = np.load("jason_p0.npy")
 p1 = np.load("jason_p1.npy")
 p2 = np.load("jason_p2.npy")
@@ -54,7 +54,22 @@ o0 = [1957,19785,16459,14328,4837,20024,24946,14433,9524,2878]
 o1 = [7331,6097,14328,12308,12734,17679,20925,20024,10804,20080]
 o2 = [22119,24516,12308,6097,2854,12734,16660,20024,3519,24117]
 
+nb, nw = 0, 0
 print(len(o0+o1+o2))
 print(len(set(o0+o1+o2)))
 for i in set(o0+o1+o2):
+    p = np.array((p0[i], p1[i], p2[i]))
+    mean = (p0[i]+p1[i]+p2[i])/3.0
+    print(p, mean, np.std(p))
+    order = np.argsort(np.abs(p-mean))
+    print(order)
+    # recalculate the mean throwing out the one the furthest from the mean
+    print(p[order[:2]], np.mean(p[order[:2]]))
     print(a[i], p0[i], p1[i], p2[i])
+    if np.abs(np.mean(p[order[:2]])-a[i])<np.abs(mean-a[i]):
+        print("better")
+        nb+=1
+    else:
+        print("worse")
+        nw+=1
+    print()
